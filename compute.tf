@@ -44,4 +44,5 @@ resource "alicloud_instance" "public_instances" {
   image_id             = data.alicloud_images.images_ds.ids[0]
   instance_name        = "public_instance_${count.index}"
   key_name             = alicloud_ecs_key_pair.lab_keypair.id
+  role_name            = var.ecs.role_name
 }

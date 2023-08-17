@@ -17,6 +17,7 @@ vpc = {
 ecs = {
   security_group_name = "OpenSG"
   instance_type       = "ecs.u1-c1m2.large"
+  role_name           = "admin-role"
 }
 
 public_instance_count  = 1

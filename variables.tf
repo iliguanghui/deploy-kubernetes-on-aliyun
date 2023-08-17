@@ -16,6 +16,7 @@ variable "ecs" {
   type = object({
     security_group_name = string
     instance_type       = string
+    role_name           = string
   })
 }
 
