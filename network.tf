@@ -1,4 +1,4 @@
-data "alicloud_resource_manager_resource_groups" "labrg" {
+data "alicloud_resource_manager_resource_groups" "librg" {
   name_regex = "LabResouceGroup"
 }
 
@@ -6,14 +6,14 @@ data "alicloud_resource_manager_resource_groups" "labrg" {
 resource "alicloud_vpc" "default" {
   vpc_name          = var.vpc.name
   cidr_block        = var.vpc.cidr
-  resource_group_id = data.alicloud_resource_manager_resource_groups.labrg.ids[0]
+  resource_group_id = data.alicloud_resource_manager_resource_groups.librg.ids[0]
 }
 
 /* create an ipv4 gateway */
 resource "alicloud_vpc_ipv4_gateway" "igw" {
   vpc_id            = alicloud_vpc.default.id
   ipv4_gateway_name = var.vpc.name
-  resource_group_id = data.alicloud_resource_manager_resource_groups.labrg.ids[0]
+  resource_group_id = data.alicloud_resource_manager_resource_groups.librg.ids[0]
   enabled           = true
 }
 
