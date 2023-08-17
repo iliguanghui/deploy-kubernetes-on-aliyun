@@ -19,5 +19,5 @@ ecs = {
   instance_type       = "ecs.u1-c1m2.large"
 }
 
-public_instance_count  = 2
+public_instance_count  = 1
 private_instance_count = 0
