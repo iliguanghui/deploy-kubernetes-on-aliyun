@@ -25,7 +25,7 @@ resource "alicloud_security_group_rule" "ingress" {
 
 resource "alicloud_ecs_key_pair" "lab_keypair" {
   key_pair_name = "lab_keypair"
-  key_file      = "lab_keypari.pub"
+  public_key    = file(var.ecs.pubkey_file)
 }
 
 resource "alicloud_instance" "public_instances" {
