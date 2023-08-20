@@ -40,9 +40,16 @@ resource "alicloud_instance" "public_instances" {
   internet_charge_type       = "PayByTraffic"
   internet_max_bandwidth_out = 5
 
-  system_disk_category = "cloud_essd"
+  system_disk_category = var.ecs.system_disk_category
+  system_disk_size     = max(20, data.alicloud_images.images_ds.images[0].size)
   image_id             = data.alicloud_images.images_ds.ids[0]
   instance_name        = "public_instance_${count.index}"
   key_name             = alicloud_ecs_key_pair.lab_keypair.id
   role_name            = var.ecs.role_name
+  user_data            = <<EOF
+#!/bin/bash
+yum -y install wget
+wget https://gitlab.com/liguanghui/deploy-kubernetes-on-aliyun-with-terraform/-/raw/main/prepare.sh
+bash prepare.sh
+EOF
 }

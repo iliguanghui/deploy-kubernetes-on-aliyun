@@ -15,11 +15,17 @@ vpc = {
   ]
 }
 ecs = {
-  security_group_name = "OpenSG"
-  instance_type       = "ecs.u1-c1m2.large"
-  role_name           = "admin-role"
-  pubkey_file         = "lab_keypair.pub"
+  security_group_name  = "OpenSG"
+  instance_type        = "ecs.t6-c1m2.large"
+  role_name            = "admin-role"
+  pubkey_file          = "lab_keypair.pub"
+  system_disk_category = "cloud_efficiency"
 }
 
-public_instance_count  = 1
+public_instance_count  = 3
 private_instance_count = 0
+
+dns = {
+  domain_name = "liguanghui.pro"
+  record_name = "apiserver"
+}

@@ -14,10 +14,11 @@ variable "vpc" {
 
 variable "ecs" {
   type = object({
-    security_group_name = string
-    instance_type       = string
-    role_name           = string
-    pubkey_file         = string
+    security_group_name  = string
+    instance_type        = string
+    role_name            = string
+    pubkey_file          = string
+    system_disk_category = string
   })
 }
 
@@ -29,4 +30,11 @@ variable "public_instance_count" {
 variable "private_instance_count" {
   type        = number
   description = "number of instances within private subnets"
+}
+
+variable "dns" {
+  type = object({
+    domain_name = string
+    record_name = string
+  })
 }
