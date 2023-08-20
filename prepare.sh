@@ -21,7 +21,7 @@ containerd_package_name="containerd-${containerd_version}-linux-amd64.tar.gz"
 
 function update_os_and_install_necessary_tools {
     yum -y update
-    yum -y install jq wget yum-utils conntrack-tools ipvsadm socat
+    yum -y install jq wget yum-utils conntrack-tools ipvsadm socat git lrzsz
 }
 update_os_and_install_necessary_tools
 
