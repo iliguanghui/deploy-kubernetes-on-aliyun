@@ -181,9 +181,9 @@ metadata:
   name: nginx-config
   namespace: nginx-ingress
 data:
-  client-max-body-size: 10m
+  client-max-body-size: "10m"
   worker-connections: "2048"
-  worker-shutdown-timeout: 90s
+  worker-shutdown-timeout: "90s"
   hsts: "true"
   http2: "true"
   http-snippets: |
