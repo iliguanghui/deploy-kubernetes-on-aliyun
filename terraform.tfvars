@@ -22,7 +22,7 @@ ecs = {
   system_disk_category = "cloud_efficiency"
 }
 
-public_instance_count  = 3
+public_instance_count  = 2
 private_instance_count = 0
 
 dns = {
