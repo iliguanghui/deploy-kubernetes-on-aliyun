@@ -1,4 +1,6 @@
 #!/bin/bash
+# Print commands and their arguments as they are executed
+set -x
 # 要安装的kubernetes版本
 kubernetes_version="v1.27.4"
 # 要使用的containerd版本
@@ -7,6 +9,7 @@ runc_version="v1.1.8"
 cni_plugins_version="v1.3.0"
 cri_tools_version="v1.27.0"
 nerdctl_version="v1.5.0"
+metrics_server_version="v0.6.4"
 # 要安装的aliyun cli的文件名
 aliyun_cli_file="aliyun-cli-linux-3.0.2-amd64.tgz"
 # ecs、oss实例所在的阿里云地域
@@ -146,6 +149,13 @@ EOF
     systemctl enable kubelet
 }
 download_kubernetes_packages
+
+function download_metrics_server_image {
+    aliyun oss cp "oss://${oss_bucket_name}/${kubernetes_version}/metrics-server-${metrics_server_version}.tar" .
+    nerdctl -n k8s.io image load -i "${kubernetes_version}/metrics-server-${metrics_server_version}.tar"
+}
+download_metrics_server_image
+
 echo 'GRUB_CMDLINE_LINUX="cgroup_enable=cpu"' >> /etc/default/grub
 grub2-mkconfig -o /boot/grub2/grub.cfg
 reboot
