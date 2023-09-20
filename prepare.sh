@@ -27,7 +27,15 @@ function setup_hostname {
     METADATA_TOKEN_PATH="latest/api/token"
     IMDS_TOKEN=$(curl -s -f --max-time 3 -X PUT -H "X-aliyun-ecs-metadata-token-ttl-seconds: 900" ${METADATA_BASEURL}/${METADATA_TOKEN_PATH})
     region=$(curl -s -q --max-time 3 -H "X-aliyun-ecs-metadata-token: ${IMDS_TOKEN}" -f ${METADATA_BASEURL}/latest/meta-data/region-id)
+    while [ -z "$region" ]; do
+        region=$(curl -s -q --max-time 3 -H "X-aliyun-ecs-metadata-token: ${IMDS_TOKEN}" -f ${METADATA_BASEURL}/latest/meta-data/region-id)
+        sleep 1
+    done
     ip=$(curl -s -q --max-time 3 -H "X-aliyun-ecs-metadata-token: ${IMDS_TOKEN}" -f ${METADATA_BASEURL}/latest/meta-data/private-ipv4)
+    while [ -z "$ip" ]; do
+        ip=$(curl -s -q --max-time 3 -H "X-aliyun-ecs-metadata-token: ${IMDS_TOKEN}" -f ${METADATA_BASEURL}/latest/meta-data/private-ipv4)
+        sleep 1
+    done
     echo "Generating hostname ${region}-${ip//./-}"
     hostnamectl set-hostname "${region}-${ip//./-}"
 }
